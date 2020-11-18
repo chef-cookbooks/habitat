@@ -1,0 +1,53 @@
+---
+driver:
+  name: exec
+  host: localhost
+
+provisioner:
+  name: chef_zero
+  install_strategy: skip
+  # chef_client_path: "C:\\opscode\\chef-workstation\\bin\\chef-client"
+  deprecations_as_errors: false
+
+verifier:
+  name: inspec
+
+platforms:
+- name: windows-2019
+
+suites:
+  - name: win-package
+    named_run_list: win_package
+    verifier:
+      inspec_tests:
+        - test/integration/win_package
+    includes:
+      - windows-2019
+  - name: win-service
+    named_run_list: win_service
+    verifier:
+      inspec_tests:
+        - test/integration/win_service
+    includes:
+      - windows-2019
+  - name: win-sup
+    named_run_list: win_sup
+    verifier:
+      inspec_tests:
+        - test/integration/win_sup
+    includes:
+      - windows-2019
+  - name: win-config
+    named_run_list: win_config
+    verifier:
+      inspec_tests:
+        - test/integration/win_config
+    includes:
+      - windows-2019
+  - name: win-user-toml
+    named_run_list: win_user_toml
+    verifier:
+      inspec_tests:
+        - test/integration/win_user_toml
+    includes:
+      - windows-2019
